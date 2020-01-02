@@ -31,7 +31,10 @@ def make_sample(file_list, start_time, end_time, padding=0):
 
 
 def create_damselfish_samples(df, file_list, output):
-    os.mkdir(output)
+    try:
+        os.mkdir(output)
+    except OSError:
+        pass
     for i in range(0, len(df)):
         row = df.iloc[i]
         sample, sr = make_sample(file_list, row[0], row[1], .5)
@@ -39,8 +42,13 @@ def create_damselfish_samples(df, file_list, output):
 
 
 def create_noise_samples(df, file_list, output):
-    os.mkdir(output)
+    try:
+        os.mkdir(output)
+    except OSError:
+        pass
     for i in range(0, len(df)):
+        row = df.iloc[i]
+        start_time = row[0]
         sample, sr = make_sample(file_list, start_time + i, start_time + i + 1, .5)
         sf.write(f"{output}/{i}.wav", sample, sr)
 

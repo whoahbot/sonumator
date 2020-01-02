@@ -6,7 +6,8 @@
 	"dockerFile": "Dockerfile",
 
 	"runArgs": [
-		"--runtime=nvidia",
+		"--gpus",
+		"all",
 		"--volume",
 		"/home/whoahbot/.config/gcloud/:/root/.config/gcloud/",
 		"--volume",
