@@ -1,4 +1,10 @@
-torch-1.3.0+cpu
-torchvision-0.4.1+cpu
-librosa
+librosa==0.7.1
 matplotlib
+pandas
+soundfile
+
+#-f https://download.pytorch.org/whl/torch_stable.html
+#torch==1.2.0
+#torchvision==0.4.0
+
+#fastai==1.0.58
