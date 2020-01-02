@@ -46,9 +46,9 @@ def create_noise_samples(df, file_list, output):
         os.mkdir(output)
     except OSError:
         pass
+    
+    start_time = 48 # Past the end of the last sample in the first file
     for i in range(0, len(df)):
-        row = df.iloc[i]
-        start_time = row[0]
         sample, sr = make_sample(file_list, start_time + i, start_time + i + 1, .5)
         sf.write(f"{output}/{i}.wav", sample, sr)
 
