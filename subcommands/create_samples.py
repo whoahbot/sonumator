@@ -5,12 +5,7 @@ import glob
 import librosa
 import pandas as pd
 import soundfile as sf
-
-def between(start, end):
-    if start <= number <= end:
-        return True
-    else:
-        return False
+import random
 
 def make_sample(file_list, start_time, end_time, padding=0):
     """
@@ -41,14 +36,31 @@ def create_damselfish_samples(df, file_list, output):
         sf.write(f"{output}/{i}.wav", sample, sr)
 
 
+def random_start(df):
+    """
+    Find a random start position that isn't between any of
+    the start and stop points in df.
+    """
+    beginning = 48 # After the end of the first sample
+    end = df.iloc[(len(df) -1)][1] # The last entry in the spreadsheet
+    
+    start = random.uniform(beginning, end)
+    for i in range(0, len(df)):
+        row = df.iloc[i]
+        if row[0] < start < row[1]:
+            random_start(df)
+    
+    return start
+
+
 def create_noise_samples(df, file_list, output):
     try:
         os.mkdir(output)
     except OSError:
         pass
-    
-    start_time = 48 # Past the end of the last sample in the first file
+        
     for i in range(0, len(df)):
+        start_time = random_start(df)
         sample, sr = make_sample(file_list, start_time + i, start_time + i + 1, .5)
         sf.write(f"{output}/{i}.wav", sample, sr)
 
