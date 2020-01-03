@@ -6,4 +6,4 @@
 set -m
 pip install pydub librosa fire --user
 sudo apt-get --assume-yes install ffmpeg sox libsox-dev libsox-fmt-all
-pip install torchaudio==0.3.0
+pip install torchaudio==0.3.1
