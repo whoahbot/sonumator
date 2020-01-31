@@ -92,6 +92,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://download.pytorch.org/whl/torch_stable.html \
         && \
 
+    # Install gcloud
+    export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+    echo "deb http://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get -qyy update && apt-get -qyy install google-cloud-sdk && \
+
 # ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------

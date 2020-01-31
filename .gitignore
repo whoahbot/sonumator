@@ -1,4 +1,5 @@
 recordings/
+potentials/
 output/
 *.csv
 *.pyc

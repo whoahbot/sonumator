@@ -21,7 +21,7 @@ def make_sample(file_list, start_time, end_time, padding=0):
         file_list[index],
         offset=indexed_start_time,
         sr=5000,
-        duration=indexed_end_time - indexed_start_time,
+        duration=2,
     )
 
 
