@@ -1,9 +1,12 @@
 import os
-from subprocess import call, check_output
 import math
 import glob
 import time
 import concurrent.futures
+
+from subprocess import call, check_output
+from dateutil.parser import parse
+from datetime import timedelta
 
 import matplotlib.pyplot as plt
 import librosa
@@ -46,14 +49,23 @@ def search_file_for_samples(gs_filepath, model, offset=2):
         end = i + offset
 
         basename = os.path.basename(filepath)[:-4]
+        filetime = parse(basename[:-4])
 
-        y, sr = librosa.load(filepath, sr=5000, offset=i, duration=2,)
+        y, sr = librosa.load(filepath, sr=5000, offset=i, duration=2)
         tmpfile = f"potentials/{basename}-{i}.wav"
         sf.write(tmpfile, y, 5000)
         item = AudioItem(path=tmpfile)
         category, _, _ = audio_predict(learn, item)
         if str(category) == "damselfish":
-            df = df.append([{"start": i, "end": end, "filepath": filepath}])
+            df = df.append(
+                [
+                    {
+                        "start": filetime + timedelta(seconds=i),
+                        "end": filetime + timedelta(seconds=end),
+                        "filepath": filepath,
+                    }
+                ]
+            )
         os.remove(tmpfile)
 
     os.remove(filepath)
@@ -61,7 +73,7 @@ def search_file_for_samples(gs_filepath, model, offset=2):
 
 
 def search_all_files(file_list):
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
         executor.map(
             lambda gs_filepath: search_file_for_samples(gs_filepath, learn), file_list
         )
