@@ -49,7 +49,6 @@ def search_file_for_samples(gs_filepath, model, offset=2):
         end = i + offset
 
         basename = os.path.basename(filepath)[:-4]
-        filetime = datetime.datetime.strptime(basename, "%Y%m%d-%H%M%S")
         filetime = parse(basename)
 
         y, sr = librosa.load(filepath, sr=5000, offset=i, duration=2)

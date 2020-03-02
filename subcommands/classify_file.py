@@ -69,7 +69,12 @@ def search_file_for_samples(gs_filepath, learn, output, offset=2):
         os.remove(tmpfile)
 
     os.remove(filepath)
-    df.to_csv(f"{output}{basename}.csv")
+    output_csv = f"{output}/{basename}.csv"
+    df.to_csv(output_csv)
+
+    # Copy the file to the GS bucket
+    return_code = call(["gsutil", "cp", output_csv, "gs://sonumator/csv/"])
+    print(f"Copied {output_csv} to google storage, return code: {return_code}")
 
 
 def classify_file(args):
