@@ -126,4 +126,4 @@ if __name__ == "__main__":
     print(category)
 
     all_files = list_all_recordings()
-    search_all_files(all_files)
+    search_all_files(all_files[4:])
