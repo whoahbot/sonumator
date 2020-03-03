@@ -6,5 +6,5 @@ files=$(gsutil ls gs://sonumator/recordings/2015-2016/*.wav | tail -q -n +${args
 
 for file in $files; do
     echo "Processing $file"
-    python ./sonumator.py classify_file --file $file --training-set ./output/ --output ./csv/
+    time python ./sonumator.py classify_file --file $file --training-set ./output/ --output ./csv/
 done
