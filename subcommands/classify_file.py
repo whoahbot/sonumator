@@ -115,6 +115,7 @@ def classify_file(args):
 
     learn = audio_learner(db, base_arch=models.resnet50)
     learn = learn.load("weight_decay_more_data_465")
-    learn.model.eval()
+    with torch.no_grad():
+      learn.model.eval()
 
-    search_file_for_samples(args.file, learn, args.output)
+      search_file_for_samples(args.file, learn, args.output)
