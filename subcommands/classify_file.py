@@ -95,6 +95,7 @@ def classify_file(args):
     config = AudioConfig(
         use_spectro=True,
         # delta=True,
+        cache=False,
         sg_cfg=sg_cfg,
     )
 

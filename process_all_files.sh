@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 args=("$@")
 
 files=$(gsutil ls gs://sonumator/recordings/2015-2016/*.wav | tail -q -n +${args[0]});
