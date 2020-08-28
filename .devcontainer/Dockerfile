@@ -86,9 +86,11 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         protobuf \
         pyyaml \
         typing \
+        jupyter \
+        Pillow==6.2.2 \
         && \
     $PIP_INSTALL \
-        torch==1.2.0 torchvision==0.4.0 -f \
+        torch==1.3.0 torchvision==0.4.0 -f \
         https://download.pytorch.org/whl/torch_stable.html \
         && \
 

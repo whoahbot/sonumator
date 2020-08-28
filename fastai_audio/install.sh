@@ -7,3 +7,4 @@ set -m
 pip install pydub librosa fire --user
 sudo apt-get --assume-yes install ffmpeg sox libsox-dev libsox-fmt-all
 pip install torchaudio==0.3.1
+pip install fastai==1.0.59

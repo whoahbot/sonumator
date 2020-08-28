@@ -8,6 +8,9 @@
 	"runArgs": [
 		"--gpus",
 		"all",
+		"-m",
+		"29G",
+		"--shm-size=8G",
 		"--volume",
 		"/home/whoahbot/.config/gcloud/:/root/.config/gcloud/",
 		"--volume",
